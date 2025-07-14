@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeProfileManagement.Data\EmployeeProfileManagement.Data.csproj" />
+    <ProjectReference Include="..\EmployeeProfileManagement.Models\EmployeeProfileManagement.Models.csproj" />
+  </ItemGroup>
+
 </Project>
