@@ -17,7 +17,6 @@
     <ProjectReference Include="..\EmployeeProfileManagement.Data\EmployeeProfileManagement.Data.csproj" />
     <ProjectReference Include="..\EmployeeProfileManagement.GraphQL\EmployeeProfileManagement.GraphQL.csproj" />
     <ProjectReference Include="..\EmployeeProfileManagement.Models\EmployeeProfileManagement.Models.csproj" />
-    <ProjectReference Include="..\EmployeeProfileManagement.Services\EmployeeProfileManagement.Services.csproj" />
   </ItemGroup>
 
 </Project>
