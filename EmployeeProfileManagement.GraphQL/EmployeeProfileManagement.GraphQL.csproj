@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="HotChocolate" Version="15.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EmployeeProfileManagement.Models\EmployeeProfileManagement.Models.csproj" />
     <ProjectReference Include="..\EmployeeProfileManagement.Services\EmployeeProfileManagement.Services.csproj" />
   </ItemGroup>
