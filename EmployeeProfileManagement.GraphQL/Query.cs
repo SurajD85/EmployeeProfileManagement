@@ -1,4 +1,4 @@
-﻿using EmployeeProfileManagement.Data.Data;
+﻿using EmployeeProfileManagement.Data;
 using EmployeeProfileManagement.Models.Models;
 using HotChocolate;
 

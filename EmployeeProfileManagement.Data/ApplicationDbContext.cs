@@ -1,12 +1,7 @@
 ﻿using EmployeeProfileManagement.Models.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace EmployeeProfileManagement.Data.Data
+namespace EmployeeProfileManagement.Data
 {
     public class ApplicationDbContext : DbContext
     {
