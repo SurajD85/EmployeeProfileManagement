@@ -1,5 +1,3 @@
-
-using EmployeeProfileManagement.Data;
 using EmployeeProfileManagement.GraphQL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;

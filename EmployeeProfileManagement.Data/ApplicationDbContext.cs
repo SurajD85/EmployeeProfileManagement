@@ -26,6 +26,14 @@ namespace EmployeeProfileManagement.Data
                 .HasOne(uc => uc.Company)
                 .WithMany(c => c.UserCompanies)
                 .HasForeignKey(uc => uc.CompanyId);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.EmployeeNumber)
+                .IsUnique();
         }
     }
 }
