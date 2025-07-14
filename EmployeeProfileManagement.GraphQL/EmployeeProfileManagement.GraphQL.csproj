@@ -11,8 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EmployeeProfileManagement.Data\EmployeeProfileManagement.Data.csproj" />
     <ProjectReference Include="..\EmployeeProfileManagement.Models\EmployeeProfileManagement.Models.csproj" />
-    <ProjectReference Include="..\EmployeeProfileManagement.Services\EmployeeProfileManagement.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GraphQL\" />
   </ItemGroup>
 
 </Project>

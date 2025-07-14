@@ -1,0 +1,17 @@
+﻿using EmployeeProfileManagement.Data.Data;
+using EmployeeProfileManagement.Models.Models;
+using HotChocolate;
+
+namespace EmployeeProfileManagement.GraphQL
+{
+    public class Mutation
+    {
+        public async Task<User> CreateUser([Service] ApplicationDbContext context, string email, string password, string role)
+        {
+            var user = new User { Email = email, PasswordHash = password, Role = role }; // Hash password in production
+            context.Users.Add(user);
+            await context.SaveChangesAsync();
+            return user;
+        }
+    }
+}
