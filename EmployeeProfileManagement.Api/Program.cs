@@ -1,4 +1,5 @@
-using EmployeeProfileManagement.GraphQL;
+﻿using EmployeeProfileManagement.GraphQL;
+using EmployeeProfileManagement.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -24,13 +25,45 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
         };
+
+        // Add this for debugging
+        options.Events = new JwtBearerEvents
+        {
+            OnAuthenticationFailed = context =>
+            {
+                Console.WriteLine("Authentication failed: " + context.Exception.Message);
+                return Task.CompletedTask;
+            },
+            OnTokenValidated = context =>
+            {
+                Console.WriteLine("Token validated for: " + context.Principal.Identity?.Name);
+                return Task.CompletedTask;
+            }
+        };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("SystemAdmin", policy => policy.RequireRole("SystemAdmin"));
+    options.AddPolicy("Manager", policy => policy.RequireRole("Manager"));
+    options.AddPolicy("GeneralEmployee", policy => policy.RequireRole("GeneralEmployee"));
+});
 
-builder.Services.AddGraphQLServer()
+
+builder.Services.AddScoped<IUserService, UserService>(); // Register IUserService
+//builder.Services.AddScoped<IInvitationService, InvitationService>(); // Register IInvitationService
+
+
+builder.Services
+    .AddGraphQLServer()
     .AddQueryType<Query>()
-    .AddMutationType<Mutation>();
+    .AddMutationType<Mutation>()
+    .AddProjections()
+    .AddFiltering()
+    .AddSorting()
+    .AddAuthorization(); // <--- ADD THIS LINE HERE! This is the HotChocolate-specific authorization setup
+
+builder.Services.AddLogging(logging => logging.AddConsole());
 
 var app = builder.Build();
 
@@ -42,36 +75,3 @@ app.MapGraphQL();
 app.Run();
 
 
-//namespace EmployeeProfileManagement.Api
-//{
-//    public class Program
-//    {
-//        public static void Main(string[] args)
-//        {
-//            var builder = WebApplication.CreateBuilder(args);
-
-//            // Add services to the container.
-
-//            builder.Services.AddControllers();
-//            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//            builder.Services.AddEndpointsApiExplorer();
-//            builder.Services.AddSwaggerGen();
-
-//            var app = builder.Build();
-
-//            // Configure the HTTP request pipeline.
-//            if (app.Environment.IsDevelopment())
-//            {
-//                app.UseSwagger();
-//                app.UseSwaggerUI();
-//            }
-
-//            app.UseAuthorization();
-
-
-//            app.MapControllers();
-
-//            app.Run();
-//        }
-//    }
-//}
